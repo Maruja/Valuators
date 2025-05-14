@@ -15,20 +15,11 @@ class AddressService:
         return [addres.to_dict() for addres in self.list_addresses_obj]
 
     def search_by_CP(self, CP_to_search):
-        list_of_CPs = []
-        for address in self.list_addresses_obj:
-            if address.get_d_codigo() == CP_to_search:
-                #print("Found a match")
-                list_of_CPs.append(address)
-        if list_of_CPs == []:
-            return "FOUND NOTHING !!"
+        #List COmprehension
+        list_of_CPs = [address for address in self.list_addresses_obj if address.get_d_codigo() == CP_to_search ]
         return [ addres.to_dict() for addres in list_of_CPs]
     
     def search_by_Municipio(self, Municipio_to_search):
-        list_of_Municipios = []
-        for address in self.list_addresses_obj:
-            if address.get_d_municipio() == Municipio_to_search:
-                list_of_Municipios.append(address)
-        if list_of_Municipios == []:
-            return "FOUND NOTHING !!"
+        #List Comprehension 
+        list_of_Municipios = [ address for address in self.list_addresses_obj if address.get_d_municipio() == Municipio_to_search ]
         return [ address.to_dict() for address in list_of_Municipios ]
