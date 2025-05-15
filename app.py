@@ -27,7 +27,7 @@ def search_by_cp(cp):
     response = address_service.search_by_CP(cp)
     if response :
         return jsonify(response), 200
-    return jsonify({"error": "NO addresses found with this CP !"}), 400
+    return jsonify({"error": "NO addresses found with this CP !"}), 404
 
 #Searching by Municipio will return all of the same Municipio
 @app.route('/Mnpio/<Municipio_to_search>', methods=['GET'])
@@ -35,15 +35,10 @@ def search_by_estado(Municipio_to_search):
     response = address_service.search_by_Municipio(Municipio_to_search)
     if response: 
         return jsonify(response), 200
-    return jsonify({"error": "No Municipalities found"}), 400
-
-    
+    return jsonify({"error": "No Municipalities found"}), 404
 
 
-# Endpoint con parámetro dinámico
-@app.route('/saludo/<nombre>')
-def saludo_personalizado(nombre):
-    return f'¡Hola, {nombre}! Bienvenido al microservicio Flask 😊'
+
 
 if __name__ == '__main__':
 
