@@ -2,24 +2,16 @@
 d_codigo,d_asenta,d_tipo_asenta,D_mnpio,d_estado,d_ciudad,d_CP,c_estado,c_oficina,c_CP,c_tipo_asenta,c_mnpio,id_asenta_cpcons,d_zona,c_cve_ciudad
 '''
 
-from sqlalchemy import create_engine, Column, Integer, String, inspect
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import declarative_base
 
-# Create an SQLite database (it will create a file named 'example.db')
-engine = create_engine('sqlite:///repository/example.db', echo=True)
+#creates the table base like schema 
 Base = declarative_base()
-Session = sessionmaker(bind=engine)
-
-
-
-
 
 class Address(Base):
 
-    counter_address = 0
-
     __tablename__ = 'addresses'
-    id_address = Column(Integer, primary_key=True)
+    id_address = Column(Integer, primary_key=True, autoincrement=True)
     d_codigo = Column(Integer, nullable=False)
     d_asenta = Column(String(100), nullable=False)
     D_mnpio = Column(String(100), nullable=False)
@@ -27,10 +19,8 @@ class Address(Base):
     d_ciudad = Column(String(100), nullable=False)
 
 
-
     def __init__(self, d_codigo="",d_asenta="",d_tipo_asenta="",D_mnpio="",d_estado="",d_ciudad="",d_CP="",c_estado="",c_oficina="",c_CP="",c_tipo_asenta="",c_mnpio="",id_asenta_cpcons="",d_zona="",c_cve_ciudad=""):
-        Address.counter_address += 1
-        self.id_address = Address.counter_address
+        #self.id_address = Ad
         self.d_codigo = d_codigo
         self.d_asenta = d_asenta
         self.d_tipo_asenta = d_tipo_asenta
@@ -71,11 +61,3 @@ class Address(Base):
             " Estado" : self.d_estado, 
             " Ciudad" : self.d_ciudad
         }
-    
-# Create the table (this needs to be outside the class)
-Base.metadata.create_all(engine)
-    
-engine = create_engine('sqlite:///repository/example.db')
-inspector = inspect(engine)
-
-print("DATABASE !!!!!!!!", inspector.get_table_names())

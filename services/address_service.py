@@ -5,10 +5,11 @@ from models.address import Address
 
 
 
+
 class AddressService():
     
     list_addresses_obj = []
-    sqlite_storage = SqliteStorage()
+    storage = SqliteStorage()
 
     def __init__(self):    
         #self.list_addresses_obj = FileReader().get_addresses_from_one_file_txt()
@@ -17,7 +18,7 @@ class AddressService():
 
     def add_address(self,data):
         new_address = Address(d_codigo=data['d_codigo'],d_asenta=data['d_asenta'],d_tipo_asenta=data['d_tipo_asenta'], D_mnpio=data['D_mnpio'], d_estado=data['d_estado'], d_ciudad=data['d_ciudad'], d_CP=data['d_CP'], c_estado=data['c_estado'], c_oficina=data['c_oficina'], c_CP=data['c_CP'], c_tipo_asenta=data['c_tipo_asenta'], c_mnpio=data['c_mnpio'], id_asenta_cpcons=data['id_asenta_cpcons'], d_zona=data['d_zona'], c_cve_ciudad=data['c_cve_ciudad'])
-        self.sqlite_storage.save(new_address)
+        self.storage.save(new_address)
         
 
 

@@ -6,14 +6,12 @@ import logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-
-
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # Esto deshabilita el escape Unicode
 
-logging.info("Loading address_service")
+logging.info("Creating Address Service")
 address_service = AddressService()
-logging.info("address_service loaded")
+
 
 
 # Endpoint principal
