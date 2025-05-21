@@ -2,30 +2,31 @@
 read and save from sqlite database (in memory), later on we will implement a more 
 robust DB 
 '''
-from models.address import Address, Session
+from sqlalchemy import create_engine, inspect
+from sqlalchemy.orm import sessionmaker
+
+from models.address import Address, Base
 from repository.data_storage import DataStorage
-from utils.file_reader import FileReader
+
+
+# Connects to the database
+engine = create_engine('sqlite:///repository/example.db', echo=True)
+# Creates tables if they dont exist
+Base.metadata.create_all(engine)
+# Prepares a way to create Sessions
+Session = sessionmaker(bind=engine)
+
+#just to check if table was created
+inspector = inspect(engine)
+print("DATABASE !!!!!!!!", inspector.get_table_names())
+
+
 
 class SqliteStorage(DataStorage):
     list_addresses_obj = []
 
-
     def __init__(self):
       self.session = Session()
-      
-        # Add some example data
-      '''  
-        address1 = Address(d_codigo=23000, d_asenta="Zona Central", D_mnpio="La Paz", d_estado="Baja California Sur", d_ciudad="La Paz")
-        address2 = Address(d_codigo=44180, d_asenta="Mexicaltzingo", D_mnpio="Guadalajara", d_estado="Jalisco", d_ciudad="Guadalajara")
-
-        session.add_all([address1, address2])
-        session.commit()
-        print("Data inserted IN SQLITE  successfully!!!!!!!.")
-    '''
-      
-      #session.add_all(self.list_addresses_obj)
-      #session.commit()
-      #print("NEw data inserted in SQLITE")
 
     def save(self, address):
         self.session.add(address) #stage the object 
@@ -37,7 +38,7 @@ class SqliteStorage(DataStorage):
         #session = Session()
 
         # Query all persons
-        db_addresses = session.query(Address).all()
+        db_addresses = Session.query(Address).all()
 
         # Display the results
         for address in db_addresses:
