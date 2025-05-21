@@ -1,18 +1,38 @@
 #main place to run the Valuators app 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from services.address_service import AddressService
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # Esto deshabilita el escape Unicode
+
+logging.info("Loading address_service")
 address_service = AddressService()
+logging.info("address_service loaded")
+
 
 # Endpoint principal
 @app.route('/')
 def hello_world():
     return '¡Hellllo Valuators app!'
 
+#Saving one address
+@app.route('/Address', methods=['POST'])
+def save_address():
+    data = request.get_json()
+    
+    # Validate required fields
+    if not data or not data.get('d_codigo') or not data.get('d_asenta'):
+        return jsonify({"error": "CP and Asentamiento are required"}), 400
+    address_service.add_address(data)
+    return jsonify(),200
+
+    
 #Printing all the addresses
 @app.route('/C_P_code', methods=['GET'])
 def print_all():
