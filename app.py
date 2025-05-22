@@ -13,7 +13,6 @@ logging.info("Creating Address Service")
 address_service = AddressService()
 
 
-
 # Endpoint principal
 @app.route('/')
 def hello_world():
@@ -29,18 +28,26 @@ def save_address():
         return jsonify({"error": "CP and Asentamiento are required"}), 400
     address_service.add_address(data)
     return jsonify(),200
-
     
 #Printing all the addresses
-@app.route('/C_P_code', methods=['GET'])
+@app.route('/Address', methods=['GET'])
 def print_all():
     CP_Codes = address_service.print_all()
     if CP_Codes:
         return jsonify(CP_Codes), 200
     return jsonify({"error": "NO CPs found !"}), 404
 
+
+@app.route('/csv', methods=['GET'])
+def load_from_csv():
+    addresses = address_service.load_addresses()
+    if addresses:
+        return jsonify(addresses), 200
+    return jsonify({"error": "Addresses found !"}), 404
+
+
 #Searching by CP will return all of the same CP
-@app.route('/C_P_code/<cp>', methods=['GET'])
+@app.route('/CP_code/<cp>', methods=['GET'])
 def search_by_cp(cp):
     response = address_service.search_by_CP(cp)
     if response :
