@@ -14,9 +14,19 @@ class Address(Base):
     id_address = Column(Integer, primary_key=True, autoincrement=True)
     d_codigo = Column(Integer, nullable=False)
     d_asenta = Column(String(100), nullable=False)
+    d_tipo_asenta = Column(String(100), nullable=False)
     D_mnpio = Column(String(100), nullable=False)
     d_estado = Column(String(100), nullable=False)
-    d_ciudad = Column(String(100), nullable=False)
+    d_ciudad = Column(String(100), nullable=False)    
+    d_CP = Column(String(100), nullable=False)
+    c_estado = Column(String(100), nullable=False)
+    c_oficina = Column(String(100), nullable=False)
+    c_CP = Column(String(100), nullable=False)
+    c_tipo_asenta = Column(String(100), nullable=False)
+    c_mnpio = Column(String(100), nullable=False)
+    id_asenta_cpcons = Column(String(100), nullable=False)
+    d_zona = Column(String(100), nullable=False)
+    c_cve_ciudad = Column(String(100), nullable=False)
 
 
     def __init__(self, d_codigo="",d_asenta="",d_tipo_asenta="",D_mnpio="",d_estado="",d_ciudad="",d_CP="",c_estado="",c_oficina="",c_CP="",c_tipo_asenta="",c_mnpio="",id_asenta_cpcons="",d_zona="",c_cve_ciudad=""):
@@ -54,10 +64,24 @@ class Address(Base):
     
     def to_dict(self):
         return { 
-            "ID address" : self.id_address,
-            " Codigo Postal" : self.d_codigo,
-            " Colonia" : self.d_asenta,
-            " Municipio" : self.D_mnpio,
-            " Estado" : self.d_estado, 
-            " Ciudad" : self.d_ciudad
+            "id_address" : self.id_address,
+            "d_codigo" : self.d_codigo,
+            "d_asenta" : self.d_asenta,
+            "d_tipo_asenta" : self.d_tipo_asenta,        
+            "D_mnpio" : self.D_mnpio,
+            "d_estado" : self.d_estado, 
+            "d_ciudad" : self.d_ciudad,
+            "d_CP" : self.d_CP,
+            "c_estado" : self.c_estado,
+            "c_oficina" : self.c_oficina,
+            "c_CP" : self.c_CP,
+            "c_tipo_asenta" : self.c_tipo_asenta,
+            "c_mnpio" : self.c_mnpio,
+            "id_asenta_cpcons" : self.id_asenta_cpcons,
+            "d_zona" : self.d_zona,
+            "c_cve_ciudad" : self.c_cve_ciudad
         }
+    
+    
+        
+        

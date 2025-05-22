@@ -23,7 +23,6 @@ print("DATABASE !!!!!!!!", inspector.get_table_names())
 
 
 class SqliteStorage(DataStorage):
-    list_addresses_obj = []
 
     def __init__(self):
       self.session = Session()
@@ -32,17 +31,14 @@ class SqliteStorage(DataStorage):
         self.session.add(address) #stage the object 
         self.session.commit() #save to DB
 
-
     def load(self):
-        # Start a session
-        #session = Session()
-
-        # Query all persons
-        db_addresses = Session.query(Address).all()
-
-        # Display the results
-        for address in db_addresses:
-            print(address)
-        print("FINISHED printig all addresses $$$$$$$$$$$$")
-            #print(f"CP: {address.dcodigo }, dasenta: {address.dsenta}, dmnpio: {address.D_mnpio}, destado: {address.d_estado}, dciudad: {address.dciudad}")
+        db_addresses = self.session.query(Address).all()
+        return db_addresses
     
+    def query_by_CP(self, search_d_codigo):
+        addresses_cp = self.session.query(Address).filter(Address.d_codigo == search_d_codigo).all()
+        return addresses_cp
+    
+    def query_by_Mnpio(self, search_D_Mnpio):
+        addresses_Mnpio = self.session.query(Address).filter(Address.D_mnpio == search_D_Mnpio).all()
+        return addresses_Mnpio
