@@ -1,4 +1,6 @@
 #main place to run the Valuators app 
+from flask_cors import CORS
+
 from flask import Flask, jsonify, request
 from services.address_service import AddressService
 import logging
@@ -7,6 +9,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 
 app = Flask(__name__)
+CORS(app)
 app.config['JSON_AS_ASCII'] = False  # Esto deshabilita el escape Unicode
 
 logging.info("Creating Address Service")
